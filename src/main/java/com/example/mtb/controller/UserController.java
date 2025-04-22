@@ -1,6 +1,7 @@
 package com.example.mtb.controller;
 
 import com.example.mtb.DTO.UserRegistrationRequest;
+import com.example.mtb.DTO.UserResponse;
 import com.example.mtb.entity.UserDetails;
 import com.example.mtb.service.UserService;
 import com.example.mtb.utility.ResponseStructure;
@@ -21,9 +22,9 @@ public class UserController {
     private final UserService userService;
     private final RestResponseBuilder restResponseBuilder;
 
-    @PostMapping
-    public ResponseEntity<ResponseStructure<UserDetails>> addUser(@RequestBody UserRegistrationRequest user){
-        UserDetails savedUser = userService.addUser(user);
-        return RestResponseBuilder.success(HttpStatus.CREATED, "User created successfully", savedUser);
+    @PostMapping("/register")
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRegistrationRequest user){
+        UserResponse userDetails = userService.addUser(user);
+        return restResponseBuilder.success(HttpStatus.OK,"New User Details Has been added", userDetails);
     }
 }
