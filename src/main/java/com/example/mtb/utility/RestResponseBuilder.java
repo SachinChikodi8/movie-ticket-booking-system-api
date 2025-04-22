@@ -15,7 +15,7 @@ public class RestResponseBuilder {
                 .message(message)
                 .data(data)
                 .build();
-        return ResponseEntity.stat  us(status).body(responseStructure);
+        return ResponseEntity.status(status).body(responseStructure);
     }
 
     public <T> ResponseEntity<ErrorStructure<T>> error(HttpStatus errorCode, String errorMessage) {
