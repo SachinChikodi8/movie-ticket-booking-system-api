@@ -27,10 +27,11 @@ public class UserDetails {
     private String email;
     private String password;
     private String phoneNumber;
-
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
     private LocalDate dateOfBirth;
+    private boolean isDelete;
+    private Instant deletedAt;
 
     @CreatedDate
     private Instant createdAt;
