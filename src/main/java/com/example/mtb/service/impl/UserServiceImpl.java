@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userDetailsResponseMapper(userDetails);
     }
 
+
     private UserDetails copy(UserDetails userDetails, UserRegistrationRequest request) {
         userDetails.setUserRole(request.userRole());
         userDetails.setEmail(request.email());

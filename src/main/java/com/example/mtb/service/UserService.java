@@ -7,5 +7,4 @@ import com.example.mtb.entity.UserDetails;
 public interface UserService {
 
   UserResponse addUser(UserRegistrationRequest user);
-
 }
