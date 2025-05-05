@@ -9,20 +9,18 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class RestResponseBuilder {
 
-    public static <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status, String message, T data) {
-        ResponseStructure<T> responseStructure = ResponseStructure.<T>builder()
-                .statusCode(status.value())
+    public <T> ResponseEntity<ResponseStructure<T>> sucess(HttpStatus statusCode, String message, T data){
+        return ResponseEntity.status(statusCode).body(ResponseStructure.<T>builder()
+                .statusCode(statusCode.value())
                 .message(message)
                 .data(data)
-                .build();
-        return ResponseEntity.status(status).body(responseStructure);
+                .build());
     }
 
-    public <T> ResponseEntity<ErrorStructure<T>> error(HttpStatus errorCode, String errorMessage) {
-        ErrorStructure<T> errorStructure = ErrorStructure.<T>builder()
-                .errorCode(errorCode.value())
-                .errorMessage(errorMessage)
-                .build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorStructure);
+    public ResponseEntity<ErrorStructure> error(HttpStatus statusCode, String message){
+        return ResponseEntity.status(statusCode).body(ErrorStructure.builder()
+                .statusCode(statusCode.value())
+                .errorMessage(message)
+                .build());
     }
 }
