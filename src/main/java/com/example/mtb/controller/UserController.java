@@ -7,6 +7,7 @@ import com.example.mtb.entity.UserDetails;
 import com.example.mtb.service.UserService;
 import com.example.mtb.utility.ResponseStructure;
 import com.example.mtb.utility.RestResponseBuilder;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,22 +19,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final RestResponseBuilder restResponseBuilder;
+    private final RestResponseBuilder responseBuilder;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRegistrationRequest user){
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody @Valid UserRegistrationRequest user){
         UserResponse userDetails = userService.addUser(user);
-        return restResponseBuilder.sucess(HttpStatus.OK,"New User Details Has been added", userDetails);
+        return responseBuilder.sucess(HttpStatus.OK,"New User Details Has been added", userDetails);
     }
 
     @PutMapping("/users/{email}")
-    public ResponseEntity<ResponseStructure<UserResponse>> editUser(@PathVariable String email, @RequestBody UserUpdationRequest user){
+    public ResponseEntity<ResponseStructure<UserResponse>> editUser(@PathVariable String email, @RequestBody @Valid UserUpdationRequest user){
         UserResponse userDetails = userService.editUser(user, email);
-        return restResponseBuilder.sucess(HttpStatus.OK,"User Details has been updated", userDetails);
+        return responseBuilder.sucess(HttpStatus.OK,"User Details has been updated", userDetails);
     }
+
     @DeleteMapping("/users/{email}")
     public ResponseEntity<ResponseStructure<UserResponse>> softDeleteUser(@PathVariable String email){
         UserResponse userDetails = userService.softDeleteUser(email);
-        return restResponseBuilder.sucess(HttpStatus.OK,"UserDetails account has been deleted ", userDetails);
+        return responseBuilder.sucess(HttpStatus.OK,"UserDetails account has been deleted ", userDetails);
     }
 }
