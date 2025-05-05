@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+
     @Override
     public UserResponse editUser(UserUpdationRequest userRequest, String email) {
         if (userRepository.existsByEmail(email)){
@@ -49,6 +50,15 @@ public class UserServiceImpl implements UserService {
 
             return userMapper.userDetailsResponseMapper(user);
         }
+
+
+    private UserDetails copy(UserDetails userDetails, UserRegistrationRequest request) {
+        userDetails.setUserRole(request.userRole());
+        userDetails.setEmail(request.email());
+        userDetails.setPassword(request.password());
+        userDetails.setDateOfBirth(request.dateOfBirth());
+        userDetails.setPhoneNumber(request.phoneNumber());
+        userDetails.setUsername(request.username());
 
         throw new UserNotFoundByEmailException("Email not found in the Database");
 
